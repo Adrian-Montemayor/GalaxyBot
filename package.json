@@ -1,0 +1,11 @@
+{
+    "name": "galaxy-colonies-tracker",
+    "version": "1.0.0",
+    "description": "Colonies tracker during wars",
+    "main": "galaxy_tracker.js",
+    "author": "Adrián Montemayor Carlín",
+    "dependencies": {
+        "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
+        "winston": "^3.3.3"
+    }
+}
