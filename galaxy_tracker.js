@@ -33,12 +33,8 @@ function getMessage(msg){
         });
         embedMessage.addField(`${enemy["Enemy"]} - coords: `, colonies, false);
     })
-
-    //a.forEach((colony))
-
     
     if(msg.content === "colonies"){
-        //msg.reply(`${a}!`);
         msg.reply(embedMessage);
     }
 }
