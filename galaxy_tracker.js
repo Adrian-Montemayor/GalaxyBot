@@ -1,43 +1,44 @@
-var Discord = require('discord.io');
-var logger = require('winston');
-var auth = require('./auth.json');
+let Discord = require('discord.js');
+let logger = require('winston');
+let auth = require('./auth.json');
 
 logger.remove(logger.transports.Console);
 logger.add(new logger.transports.Console, {colorize: true});
 logger.level = 'debug';
 
-var bot = new Discord.Client({
-    token: auth.Token,
-    autorun: true,
+let bot = new Discord.Client()
+bot.login(auth.Token)
 
-});
+let enemies = [
+    {"Enemy": "Adrian", "colonies": [{"x": 10, "y": 20}, {"x": 20, "y": 30}]},
+    {"Enemy": "Daniel", "colonies": [{"x": 125, "y": 22}, {"x": 22, "y": 50}]}
+]
 
 
+bot.on('ready', galaxyBotReady);
+bot.on('message', getMessage);
 
-bot.on('ready', function(evt){
-       
+function galaxyBotReady(){
     logger.info('Connected');
-    logger.info('Logged in as: ');
-    logger.info(bot.username + ' - (' + bot.id + ')');
+}
 
-    bot.on("message", function(user, userID, channelID, message, evt){
-        var colonies = [{
-            "enemy": "test",
-            "colonies": [10,24]
-        }] 
-        if(message.substring(0,1) == "!"){
+function getMessage(msg){
+    const embedMessage = new Discord.MessageEmbed()
+    .setColor('#0099ff');
 
-            let args = message.substring(1).split(' ');
-            let cmd = args[0]
-            switch(cmd) {
-                case 'test':
-                    bot.sendMessage({
-                        to: channelID,
-                        message: "testing bot"
-                    });
-                
-                break;
-            }
-        }
-    });
-});
+    enemies.forEach((enemy) => {
+        colonies = ''
+        enemy['colonies'].forEach((colony) => {
+            colonies += `[${colony["x"]}, ${colony["y"]}] `;
+        });
+        embedMessage.addField(`${enemy["Enemy"]} - coords: `, colonies, false);
+    })
+
+    //a.forEach((colony))
+
+    
+    if(msg.content === "colonies"){
+        //msg.reply(`${a}!`);
+        msg.reply(embedMessage);
+    }
+}
