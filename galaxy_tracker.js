@@ -45,7 +45,6 @@ function getMessage(msg)
     
     const args = msg.content.split(" ");
 
-    //guardar el nombre y las cordenadas en una variable, guaradar datos en un arreglo
     if(args[0] === "add_enemy" )
     {
        msg.reply("Enemigo Agregado");
