@@ -64,4 +64,9 @@ function getMessage(msg)
         }
        
     }
+
+    if(args[0]==="!add_colony"){
+        
+        msg("Colonia Agregada");
+    }
 }
