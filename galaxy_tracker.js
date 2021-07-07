@@ -21,7 +21,6 @@ function galaxyBotReady(){
 function getMessage(msg)
 {
     let args = msg.content.split(" ");
-
     if(args[0] === "!colonies"){
 
         if(enemies.length  < 1 ) msg.reply("There are not colonies to display");
@@ -35,7 +34,6 @@ function getMessage(msg)
             }); 
             embedMessage.addField(`${enemy["Enemy"]} - coords: `, colonies, false);
         });
-
         msg.reply(embedMessage);
     }
 
@@ -74,7 +72,6 @@ function getMessage(msg)
         });
 
         if (duplicado !== undefined) {
-            
             duplicado["colonies"].push({"x": coords[0], "y": coords[1]});
             msg.reply("Se agrego una colonia a"+ enemy_name);
         }
