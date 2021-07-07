@@ -30,17 +30,15 @@ function getMessage(msg)
 
         enemies.forEach((enemy) => {
             colonies = '';
-            enemy['colonies'].forEach((colony) => {
+           enemy['colonies'].forEach((colony) => {
                 colonies += `[${colony["x"]}, ${colony["y"]}] `;
-            });
+            }); 
             embedMessage.addField(`${enemy["Enemy"]} - coords: `, colonies, false);
         });
 
         msg.reply(embedMessage);
     }
 
-    // agregar que si yo pongo uno repetido no se ponga
-    // agregar una colonia nueva a uno que ya esta?
     if(args[0] === "!add_enemy" )
     {
        let enemy_name = args[1].toLowerCase();
@@ -53,6 +51,7 @@ function getMessage(msg)
        }
 
         let duplicado = enemies.find((enemy) => enemy["Enemy"] === enemy_name);
+
         if (duplicado !== undefined) {
 
             msg.reply("Enemigo existente");
@@ -63,5 +62,34 @@ function getMessage(msg)
             enemies.push(enemy);
         }
        
+    }
+
+    if(args[0] === "!add_colony" )
+    {
+        let enemy_name = args[1].toLowerCase();
+        let coords = args[2].split(",");
+ 
+        let enemy = 
+        {
+             "Enemy": enemy_name,
+             "colonies": [{"x": coords[0], "y": coords[1]}]
+        }
+ 
+        let duplicado = enemies.find((enemy) => {
+
+            enemy["Enemy"] === enemy_name
+            return enemy;
+            
+        });
+
+        if (duplicado !== undefined) {
+            
+            duplicado["colonies"].push({"x": coords[0], "y": coords[1]})
+
+            msg.reply("Se agrego una colonia a"+ enemy_name);
+        }
+        else{
+            enemies.push(enemy);
+        } 
     }
 }
