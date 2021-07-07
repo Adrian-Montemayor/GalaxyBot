@@ -41,34 +41,27 @@ function getMessage(msg)
 
     if(args[0] === "!add_enemy" )
     {
-       let enemy_name = args[1].toLowerCase();
-       let coords = args[2].split(",");
-
-       let enemy = 
-       {
+        let enemy_name = args[1].toLowerCase();
+        let coords = args[2].split(",");
+        let enemy = 
+        {
             "Enemy": enemy_name,
             "colonies": [{"x": coords[0], "y": coords[1]}]
-       }
-
+        }
         let duplicado = enemies.find((enemy) => enemy["Enemy"] === enemy_name);
-
-        if (duplicado !== undefined) {
-
+        
+        if(duplicado !== undefined){
             msg.reply("Enemigo existente");
-
-        }  else{
-
+        }else{
             msg.reply("Enemigo agregado");
             enemies.push(enemy);
         }
-       
     }
 
     if(args[0] === "!add_colony" )
     {
         let enemy_name = args[1].toLowerCase();
         let coords = args[2].split(",");
- 
         let enemy = 
         {
              "Enemy": enemy_name,
@@ -76,16 +69,13 @@ function getMessage(msg)
         }
  
         let duplicado = enemies.find((enemy) => {
-
-            enemy["Enemy"] === enemy_name
+            enemy["Enemy"] === enemy_name;
             return enemy;
-            
         });
 
         if (duplicado !== undefined) {
             
-            duplicado["colonies"].push({"x": coords[0], "y": coords[1]})
-
+            duplicado["colonies"].push({"x": coords[0], "y": coords[1]});
             msg.reply("Se agrego una colonia a"+ enemy_name);
         }
         else{
