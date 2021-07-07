@@ -21,10 +21,13 @@ function galaxyBotReady(){
 function getMessage(msg)
 {
     let args = msg.content.split(" ");
+
     if(args[0] === "!colonies"){
+
         if(enemies.length  < 1 ) msg.reply("There are not colonies to display");
         const embedMessage = new Discord.MessageEmbed()
         .setColor('#0099ff');
+
         enemies.forEach((enemy) => {
             colonies = '';
             enemy['colonies'].forEach((colony) => {
@@ -32,20 +35,33 @@ function getMessage(msg)
             });
             embedMessage.addField(`${enemy["Enemy"]} - coords: `, colonies, false);
         });
+
         msg.reply(embedMessage);
     }
 
-    //guardar el nombre y las cordenadas en una variable, guaradar datos en un arreglo
+    // agregar que si yo pongo uno repetido no se ponga
+    // agregar una colonia nueva a uno que ya esta?
     if(args[0] === "!add_enemy" )
     {
-       let enemy_name = args[1];
+       let enemy_name = args[1].toLowerCase();
        let coords = args[2].split(",");
+
        let enemy = 
        {
             "Enemy": enemy_name,
             "colonies": [{"x": coords[0], "y": coords[1]}]
        }
-       enemies.push(enemy);
-       msg.reply("Enemigo Agregado");
+
+        let duplicado = enemies.find((enemy) => enemy["Enemy"] === enemy_name);
+        if (duplicado !== undefined) {
+
+            msg.reply("Enemigo existente");
+
+        }  else{
+
+            msg.reply("Enemigo agregado");
+            enemies.push(enemy);
+        }
+       
     }
 }
